@@ -12,6 +12,10 @@ using namespace std;
 //  chunks, so the 4 byte int between the strings needs 8 bytes, and the int
 //  after the strings also would need 8 bytes.  But, if you have string - 
 //  string - int - int, C++ fits both ints into a single 8-byte chunk.
+// The specific numbers here assume that you are on a 64-bit processor (and 
+//  may even vary among different processors and operating systems), but the
+//  idea that different organizations of the attributes affect the amount
+//  of storage needed always holds.
 struct Student{
     string first_name;
     string last_name;
@@ -20,9 +24,10 @@ struct Student{
 } emma, michael;
 
 int main() {
-    // Or you can declare them in the scope in the usual way.
-    // With structs, you also need the keyword struct in C, but not in C++.
-    struct Student serena;
+    // Or you can declare instances in the scope in the usual way.
+    // With structs, you also need the keyword struct in C, but not in C++:
+    // struct Student serena;
+    Student serena;
     michael.first_name = "Michael";
     michael.last_name = "Sun";
     michael.grade_on_lab8 = 100;
