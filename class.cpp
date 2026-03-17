@@ -37,6 +37,8 @@ Student::Student() {
     //  access names of attributes as variables.
     first_name = "";
     last_name = "";
+    proj_1 = NULL; // or nullptr
+    proj_2 = NULL;
 }
 
 // This is an overloaded function: It is a second definition of
@@ -45,16 +47,18 @@ Student::Student() {
 Student::Student(string new_first_name, string new_last_name) {
     first_name = new_first_name;
     last_name = new_last_name;
+    proj_1 = NULL; 
+    proj_2 = NULL;
 }
 
 // If you do this, the proj_1 variable goes out of scope when the 
 //  method finishes.
 void Student::add_project() {
-    Project proj_1;
-    this -> proj_1 = &proj_1;
+    Project* proj_1 = new Project;
+    this -> proj_1 = proj_1;
     cout << "Add project: " << this -> proj_1 << endl;
-    proj_1.name = "This Project.";
-    proj_1.score = 100;
+    proj_1 -> name = "This Project.";
+    proj_1 -> score = 100;
     cout << "Name: " << this -> proj_1 -> name << " Score: " << this -> proj_1 -> score << endl;
 }
 
@@ -80,7 +84,12 @@ int main() {
     // But now the proj_1 object has gone out of scope
     jackson.add_project();
     cout << jackson.proj_1 << endl;
+    cout << "Name: " << jackson.proj_1 -> name << " Score: " << jackson.proj_1 -> score << endl;
+    // Free up the memory allocated to proj_1
+    delete jackson.proj_1;
+    cout << jackson.proj_1 << endl;
     // Since proj_1 object was de-allocated, these will give bad info
     //  or segmentation faults.
     cout << "Name: " << jackson.proj_1 -> name << " Score: " << jackson.proj_1 -> score << endl;
+
 }
